@@ -20,6 +20,7 @@ export interface Maid {
   name: string;
   email: string;
   phone: string;
+  image: string;
   status: 'available' | 'busy' | 'offline';
   serviceAreas: string[];
   rating: number;

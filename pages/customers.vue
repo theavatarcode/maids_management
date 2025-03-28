@@ -3,12 +3,12 @@
     <!-- Header -->
     <div class="flex justify-between items-center">
       <h2 class="text-2xl font-bold text-gray-900">จัดการลูกค้า</h2>
-      <button
+      <!-- <button
         @click="showAddModal = true"
         class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         เพิ่มลูกค้า
-      </button>
+      </button> -->
     </div>
 
     <!-- Search and Filter -->
@@ -138,8 +138,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import type { Customer } from '~/types';
-
-const customers = ref<Customer[]>([]);
+import { mockCustomers } from '~/utils/mockData';
+const customers = ref<Customer[]>(mockCustomers);
 const loading = ref(false);
 const searchQuery = ref('');
 const showAddModal = ref(false);
@@ -235,6 +235,6 @@ const resetForm = () => {
 
 // โหลดข้อมูลเมื่อเปิดหน้า
 onMounted(() => {
-  fetchCustomers();
+//   fetchCustomers();
 });
 </script> 

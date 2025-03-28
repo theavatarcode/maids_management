@@ -36,6 +36,7 @@ export const mockMaids: Maid[] = [
     status: 'available',
     serviceAreas: ['คลองเตย', 'ราชเทวี', 'จตุจักร'],
     rating: 4.8,
+    image: 'https://media.discordapp.net/attachments/1113161066726293536/1355198457429622864/D70D67DC-E529-4C95-AC50-3266A67E77C1.jpg?ex=67e80e6a&is=67e6bcea&hm=0015c2facf8e0d3646605583b05e3a71ca3d2369688c9295fb155df10878fa4a&=&format=webp',
     totalJobs: 150,
     createdAt: '2024-01-01T00:00:00Z'
   },
@@ -47,6 +48,7 @@ export const mockMaids: Maid[] = [
     status: 'busy',
     serviceAreas: ['ราชเทวี', 'จตุจักร', 'ลาดพร้าว'],
     rating: 4.9,
+    image: 'https://media.discordapp.net/attachments/1113161066726293536/1355198457706451044/93022290-E23C-4599-A5F7-BC9BD689B6CB.jpg?ex=67e80e6a&is=67e6bcea&hm=f75bdcb0f0e23f19f50dc069e63c24e3aab9841ea83360b05464f00cfc31687c&=&format=webp',
     totalJobs: 200,
     createdAt: '2024-01-02T00:00:00Z'
   },
@@ -58,6 +60,7 @@ export const mockMaids: Maid[] = [
     status: 'available',
     serviceAreas: ['คลองเตย', 'ลาดพร้าว', 'บางกะปิ'],
     rating: 4.7,
+    image: 'https://media.discordapp.net/attachments/1113161066726293536/1355198457975144599/536311FF-6D1B-43CF-BC0A-7D5B0C57CDEE.jpg?ex=67e80e6a&is=67e6bcea&hm=a1b39a9b0eb01fcbc3213d8aa3b27477e0a2cd52e70ad46d9bd0e4be916af3a5&=&format=webp',
     totalJobs: 180,
     createdAt: '2024-01-03T00:00:00Z'
   }

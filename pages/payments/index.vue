@@ -3,12 +3,12 @@
     <!-- Header -->
     <div class="flex justify-between items-center">
       <h2 class="text-2xl font-bold text-gray-900">จัดการการเงิน</h2>
-      <button
+      <!-- <button
         @click="showAddModal = true"
         class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         เพิ่มรายการชำระ
-      </button>
+      </button> -->
     </div>
 
     <!-- Summary Cards -->
@@ -188,10 +188,10 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { mockBookings, mockCustomers, mockMaids } from '~/utils/mockData';
+import { mockBookings, mockCustomers, mockMaids, mockPayments } from '~/utils/mockData';
 import type { Payment, Booking, Customer, Maid } from '~/types';
 
-const payments = ref<Payment[]>([]);
+const payments = ref<Payment[]>(mockPayments);
 const searchQuery = ref('');
 const statusFilter = ref('');
 const showAddModal = ref(false);
@@ -344,6 +344,6 @@ const fetchPayments = async () => {
 };
 
 onMounted(() => {
-  fetchPayments();
+//   fetchPayments();
 });
 </script> 

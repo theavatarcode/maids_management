@@ -186,10 +186,10 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { mockCustomers, mockMaids } from '~/utils/mockData';
+import { mockCustomers, mockMaids, mockBookings } from '~/utils/mockData';
 import type { Booking, Customer, Maid } from '~/types';
-
-const bookings = ref<Booking[]>([]);
+import Swal from 'sweetalert2';
+const bookings = ref<Booking[]>(mockBookings);
 const searchQuery = ref('');
 const statusFilter = ref('');
 const showAddModal = ref(false);
@@ -264,6 +264,11 @@ const deleteBooking = async (id: string) => {
     });
     await fetchBookings();
   } catch (error) {
+    Swal.fire({
+        title: 'เกิดข้อผิดพลาด!',
+        text: 'ไม่สามารถลบข้อมูลได้',
+        icon: 'error'
+      })
     console.error('เกิดข้อผิดพลาดในการลบข้อมูล:', error);
   }
 };
@@ -282,9 +287,20 @@ const handleSubmit = async () => {
       });
     }
     showAddModal.value = false;
+    Swal.fire({
+        title: 'สำเร็จ!',
+        text: 'บันทึกข้อมูลการจองเรียบร้อยแล้ว',
+        icon: 'success'
+      })
+
     await fetchBookings();
     resetForm();
   } catch (error) {
+    Swal.fire({
+        title: 'เกิดข้อผิดพลาด!',
+        text: 'ไม่สามารถบันทึกข้อมูลได้',
+        icon: 'error'
+      })
     console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล:', error);
   }
 };
@@ -305,7 +321,7 @@ const fetchBookings = async () => {
   loading.value = true;
   try {
     const { data } = await useFetch<{ bookings: Booking[] }>('/api/bookings');
-    bookings.value = data.value?.bookings || [];
+    bookings.value = data.value?.bookings || mockBookings;
   } catch (error) {
     console.error('เกิดข้อผิดพลาดในการดึงข้อมูลการจอง:', error);
   } finally {

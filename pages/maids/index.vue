@@ -40,6 +40,9 @@
         class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow"
       >
         <div class="p-4">
+            <div class="flex justify-center">
+                <img :src="maid.image" alt="Maid Image" class=" w-24 h-24 object-cover rounded-full">
+            </div>
           <div class="flex items-center justify-between">
             <h3 class="text-lg font-semibold text-gray-900">{{ maid.name }}</h3>
             <span
@@ -77,12 +80,12 @@
           </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 flex justify-end space-x-2">
-          <NuxtLink
+          <!-- <NuxtLink
             :to="`/maids/${maid.id}`"
             class="text-indigo-600 hover:text-indigo-900 text-sm font-medium"
           >
             ดูรายละเอียด
-          </NuxtLink>
+          </NuxtLink> -->
           <button
             @click="editMaid(maid)"
             class="text-indigo-600 hover:text-indigo-900 text-sm font-medium"
@@ -134,6 +137,15 @@
             />
           </div>
           <div>
+            <label class="block text-sm font-medium text-gray-700">รูปภาพ(URL)</label>
+            <input
+              v-model="form.image"
+              type="text"
+              required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+          <div>
             <label class="block text-sm font-medium text-gray-700">สถานะ</label>
             <select
               v-model="form.status"
@@ -179,8 +191,10 @@
 import { ref, computed, onMounted } from 'vue';
 import { StarIcon } from '@heroicons/vue/24/solid';
 import type { Maid } from '~/types';
+import { mockMaids } from '~/utils/mockData';
+import Swal from 'sweetalert2';
 
-const maids = ref<Maid[]>([])
+const maids = ref<Maid[]>(mockMaids)
 const loading = ref(false)
 const searchQuery = ref('');
 const statusFilter = ref('');
@@ -191,6 +205,7 @@ const form = ref({
   name: '',
   email: '',
   phone: '',
+  image: '',
   status: 'available' as 'available' | 'busy' | 'offline',
   serviceAreasInput: ''
 });
@@ -221,7 +236,7 @@ const fetchMaids = async () => {
   loading.value = true
   try {
     const { data } = await useFetch<{ maids: Maid[] }>('/api/maids')
-    maids.value = data.value?.maids || []
+    maids.value = data.value?.maids || mockMaids
   } catch (error) {
     console.error('เกิดข้อผิดพลาดในการดึงข้อมูลแม่บ้าน:', error)
   } finally {
@@ -235,6 +250,7 @@ const editMaid = (maid: Maid) => {
     name: maid.name,
     email: maid.email,
     phone: maid.phone,
+    image: maid.image,
     status: maid.status as 'available' | 'busy' | 'offline',
     serviceAreasInput: maid.serviceAreas.join(', ')
   };
@@ -260,10 +276,20 @@ const handleSubmit = async () => {
         method: 'PUT',
         body: form.value
       })
+      Swal.fire({
+        title: 'สำเร็จ!',
+        text: 'แก้ไขข้อมูลแม่บ้านเรียบร้อยแล้ว',
+        icon: 'success'
+      })
     } else {
       await useFetch<{ id: number }>('/api/maids', {
         method: 'POST',
         body: form.value
+      })
+      Swal.fire({
+        title: 'สำเร็จ!',
+        text: 'เพิ่มข้อมูลแม่บ้านเรียบร้อยแล้ว',
+        icon: 'success'
       })
     }
     showAddModal.value = false
@@ -273,10 +299,16 @@ const handleSubmit = async () => {
       name: '',
       email: '',
       phone: '',
+      image: '',
       status: 'available',
       serviceAreasInput: ''
     }
   } catch (error) {
+    Swal.fire({
+      title: 'เกิดข้อผิดพลาด!',
+      text: 'ไม่สามารถบันทึกข้อมูลได้',
+      icon: 'error'
+    })
     console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล:', error)
   }
 };

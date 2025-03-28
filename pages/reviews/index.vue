@@ -85,7 +85,7 @@ import { StarIcon, CalendarIcon } from '@heroicons/vue/24/outline';
 import { mockReviews, mockCustomers, mockMaids } from '~/utils/mockData';
 import type { Review, Customer, Maid } from '~/types';
 
-const reviews = ref<Review[]>([]);
+const reviews = ref<Review[]>(mockReviews);
 const searchQuery = ref('');
 const ratingFilter = ref('');
 const loading = ref(false);
@@ -136,7 +136,7 @@ const fetchReviews = async () => {
   loading.value = true;
   try {
     const { data } = await useFetch<{ reviews: Review[] }>('/api/reviews');
-    reviews.value = data.value?.reviews || [];
+    reviews.value = data.value?.reviews || mockReviews;
   } catch (error) {
     console.error('เกิดข้อผิดพลาดในการดึงข้อมูลรีวิว:', error);
   } finally {
@@ -159,6 +159,6 @@ const deleteReview = async (id: number) => {
 
 // เรียกดึงข้อมูลเมื่อโหลดหน้า
 onMounted(() => {
-  fetchReviews();
+      fetchReviews();
 });
 </script> 

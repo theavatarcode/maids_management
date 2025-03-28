@@ -92,6 +92,7 @@ bun run preview
 | email         | VARCHAR(100) | NOT NULL, UNIQUE          |
 | phone         | VARCHAR(20)  | NOT NULL                  |
 | status        | ENUM         | ('available','busy','offline')|
+| image         | VARCHAR(256) | NOT NULL                  |
 | service_areas | JSON         | NOT NULL                  |
 | rating        | DECIMAL(2,1) | DEFAULT 0                 |
 | created_at    | TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP |
@@ -151,6 +152,6 @@ bun run preview
 2. After DELETE on `reviews`:
    - Update `maids.rating` with new average rating
 
-   
+
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

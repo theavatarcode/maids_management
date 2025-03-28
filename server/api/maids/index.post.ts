@@ -6,8 +6,8 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   try {
     const [result] = await pool.query(
-      'INSERT INTO maids (name, email, phone, status, service_areas) VALUES (?, ?, ?, ?, ?)',
-      [body.name, body.email, body.phone, body.status, JSON.stringify(body.serviceAreas)]
+      'INSERT INTO maids (name, email, phone, status, image, service_areas) VALUES (?, ?, ?, ?, ?)',
+      [body.name, body.email, body.phone, body.status, body.image, JSON.stringify(body.serviceAreas)]
     ) as [ResultSetHeader, any]
     return { id: result.insertId }
   } catch (error) {
